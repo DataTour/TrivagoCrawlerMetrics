@@ -13,24 +13,30 @@ app.get('/', (req, res) => {
 app.get('/v1?url=', async(req, res) => {
     const url = req.query.url
 
-    const config = {
-        uri: url,
-        transform: async function (body) {
-            return  await cheerio.load(body)
-          }
-        }
+    try {
 
-    rp(config).then($ => {
-        const name = $('.name__copytext').text()
-        const address = $('.location-details').text()
-        const rating = $('rating-pill').text()
-
-        res.status(200).json({
-            name,
-            address,
-            rating
+        const config = {
+            uri: url,
+            transform: async function (body) {
+                return  await cheerio.load(body)
+              }
+            }
+    
+        rp(config).then($ => {
+            const name = $('.name__copytext').text()
+            const address = $('.location-details').text()
+            const rating = $('rating-pill').text()
+    
+            res.status(200).json({
+                name,
+                address,
+                rating
+            })
         })
-    })
+
+    } catch (error) {
+        res.status(400).json({ error })
+    }
 })
 
 app.listen(3001, () => {
