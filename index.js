@@ -40,5 +40,5 @@ app.get('/v1?url=', async(req, res) => {
 })
 
 app.listen(3001, () => {
-    console.log({success:'iniciadoo'})
+    console.log({success:'iniciado'})
 })
