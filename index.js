@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/v1?url=', async(req, res) => {
-    const { url } = req.query
+    const url = req.query.url
 
     const config = {
         uri: url,
